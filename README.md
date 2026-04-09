@@ -29,7 +29,7 @@
 
 Download codebase.
 ```bash
-git clone --recursive https://github.com/google-deepmind/ufo4d
+git clone --recursive https://github.com/ufo-4d/ufo-4d
 cd ufo4d
 ```
 
