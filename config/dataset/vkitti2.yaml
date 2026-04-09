@@ -1,0 +1,16 @@
+defaults:
+  - base_dataset
+
+name: vkitti2
+train_root: "/home/junhwahur_google_com/dataset/vkitti2"
+train_aug_type: "random_scale_crop_resize_aspect_ratio"
+test_aug_type: "resize_test"
+
+# Data augmentation.
+temporal_flip: false
+horizontal_flip: true
+photometric_aug: true
+
+# DatasetCfgCommon.
+original_image_shape: [375, 1242]
+test_image_shape: [160, 512]

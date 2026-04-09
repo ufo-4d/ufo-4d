@@ -1,0 +1,17 @@
+defaults:
+  - base_dataset
+
+name: stereo4d
+train_root: "/home/junhwahur_google_com/dataset/stereo4d_fov60_wds_1"
+test_root: "/home/junhwahur_google_com/dataset/stereo4d_test"
+train_aug_type: "random_scale_crop_resize_aspect_ratio"
+test_aug_type: "no_augmentation"
+
+# Data augmentation.
+temporal_flip: true
+horizontal_flip: true
+photometric_aug: true
+
+# DatasetCfgCommon.
+original_image_shape: [512, 512]
+test_image_shape: [512, 512]

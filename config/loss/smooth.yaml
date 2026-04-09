@@ -1,0 +1,5 @@
+smooth:
+  weight_point: 0.1
+  weight_motion: 0.1
+  scale_invariant: true
+  scale_invariant_apply_after: 1

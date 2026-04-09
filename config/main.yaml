@@ -1,0 +1,70 @@
+defaults:
+  - _self_
+  - model/encoder: ufo4d
+  - model/decoder: splatting_cuda
+  - loss: [mse, lpips, pointmap, pointmap_rendered, motion, motion_rendered, pose, scale, smooth]
+
+logging:
+  mode: tensorboard
+  name: placeholder
+
+wandb:
+  project: ufo-4d
+  entity: placeholder
+  name: placeholder
+  mode: disabled
+
+mode: train
+
+data_loader:
+  train:
+    num_workers: 4
+    persistent_workers: true
+    batch_size: 4
+    seed: 1234
+  test:
+    num_workers: 1
+    persistent_workers: false
+    batch_size: 1
+    seed: 2345
+  val:
+    num_workers: 1
+    persistent_workers: true
+    batch_size: 1
+    seed: 3456
+
+optimizer:
+  lr: 4e-5
+  warm_up_steps: 1000
+  backbone_lr_multiplier: 0.1
+
+checkpointing:
+  load: null
+  every_n_train_steps: 5000
+  save_top_k: 1
+  save_weights_only: true
+
+train:
+  print_log_every_n_steps: 200
+  save_image_every_n_steps: 8000
+  detach_cross_grad_for_rendering: true
+  detach_mg_grad_for_rendering: false
+  train_width: 512  # options: 256 or 512
+
+test:
+  output_path: outputs/test
+  use_point_for_eval: false
+  median_scale_eval: true
+
+seed: 111123
+
+trainer:
+  max_steps: -1
+  val_check_interval: 8000
+  gradient_clip_val: 0.5
+  accumulate_grad_batches: 1
+  num_nodes: 1
+
+hydra:
+  run:
+    dir: outputs/exp_${logging.name}/${now:%Y%m%d-%H%M%S}

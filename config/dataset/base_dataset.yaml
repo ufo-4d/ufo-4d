@@ -1,0 +1,3 @@
+# Common variable for all datasets.
+background_color: [0.0, 0.0, 0.0]
+probability: 1.

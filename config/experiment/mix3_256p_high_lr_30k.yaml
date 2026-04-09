@@ -1,0 +1,107 @@
+# @package _global_
+
+defaults:
+  - /dataset@_group_.pointodyssey: pointodyssey
+  - /dataset@_group_.stereo4d: stereo4d
+  - /dataset@_group_.vkitti2: vkitti2
+  - /dataset@_group_.kitti2015: kitti2015
+  - /dataset@_group_.bonn: bonn
+  - override /model/encoder: ufo4d
+  - override /model/encoder/backbone: croco
+  - override /loss: [mse, lpips, pointmap, pointmap_rendered, motion, motion_rendered, pose, scale, smooth]
+
+logging:
+  name: mix4
+  tags: [mix4, 256x256]
+
+model:
+  encoder:
+    gs_params_head_type: dpt_gs_v1
+    motion_head_type: dpt_m_v1
+    pose_head_type: mlp_p_v1
+    pretrained_weights: combined
+    backbone:
+      pose_embed_loc: encoder
+      intrinsics_embed_loc: encoder
+      intrinsics_embed_type: token
+      freeze_encoder: false
+  decoder:
+    make_scale_invariant: false
+
+dataset:
+  stereo4d:
+    probability: 0.6
+    test_image_shape: [256, 256]
+    test_aug_type: "resize_test"
+  pointodyssey:
+    probability: 0.2
+    test_image_shape: [144, 256]
+  vkitti2:
+    probability: 0.2
+    test_image_shape: [80, 256]
+  kitti2015:
+    probability: 0.
+    test_image_shape: [80, 256]
+  bonn:
+    probability: 0.
+    test_image_shape: [192, 256]
+
+optimizer:
+  lr: 4e-5
+  warm_up_steps: 1000
+  backbone_lr_multiplier: 0.1
+
+data_loader:
+  train:
+    num_workers: 12
+    batch_size: 6
+  test:
+    num_workers: 1
+    batch_size: 1
+  val:
+    num_workers: 1
+    batch_size: 1
+
+trainer:
+  max_steps: 30000
+  val_check_interval: 8000
+  accumulate_grad_batches: 1
+
+train:
+  print_log_every_n_steps: 200
+  save_image_every_n_steps: 8000
+  detach_cross_grad_for_rendering: true
+  detach_mg_grad_for_rendering: false
+  train_width: 256
+test:
+  use_point_for_eval: false
+
+loss:
+  mse:
+    weight: 1.0
+  lpips:
+    weight: 0.05
+  pointmap:
+    weight: 0.5
+    scale_invariant: true
+  pointmap_rendered:
+    weight: 0.5
+    scale_invariant: true
+  motion:
+    weight: 1.
+    scale_invariant: true
+  motion_rendered:
+    weight: 1.
+    scale_invariant: true
+  pose:
+    weight: 1.
+    scale_invariant: true
+  scale:
+    weight: 0.001
+  smooth:
+    weight_point: 0.1
+    weight_motion: 0.1
+    scale_invariant: true
+
+
+# TODO delete

@@ -1,0 +1,55 @@
+# @package _global_
+
+defaults:
+  - /dataset@_group_.stereo4d: stereo4d
+  - /dataset@_group_.pointodyssey: pointodyssey
+  - /dataset@_group_.vkitti2: vkitti2
+  - /dataset@_group_.kitti2015: kitti2015
+  - /dataset@_group_.bonn: bonn
+  - override /model/encoder: ufo4d
+  - override /model/encoder/backbone: croco
+  - override /loss: [mse, lpips, pointmap, pointmap_rendered, motion, motion_rendered, pose, smooth]
+
+logging:
+  name: eval
+  tags: [eval, 512p]
+
+model:
+  encoder:
+    gs_params_head_type: dpt_gs_v1
+    motion_head_type: dpt_m_v1
+    pose_head_type: mlp_p_v1
+    pretrained_weights: combined
+    backbone:
+      pose_embed_loc: encoder
+      intrinsics_embed_loc: encoder
+      intrinsics_embed_type: token
+      freeze_encoder: false
+  decoder:
+    make_scale_invariant: false
+
+dataset:
+  stereo4d:
+    test_image_shape: [512, 512]
+    test_aug_type: "resize_test"
+  pointodyssey:
+    test_image_shape: [288, 512]
+    test_aug_type: "resize_test"
+  vkitti2:
+    test_image_shape: [160, 512]
+    test_aug_type: "resize_test"
+  kitti2015:
+    test_image_shape: [160, 512]
+    test_aug_type: "resize_test"
+  bonn:
+    test_image_shape: [384, 512]
+    test_aug_type: "resize_test"
+
+data_loader:
+  test:
+    num_workers: 1
+    batch_size: 1
+
+test:
+  use_gt_cam_for_rendering: false
+  use_point_for_eval: false

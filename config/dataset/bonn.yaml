@@ -1,0 +1,10 @@
+defaults:
+  - base_dataset
+
+name: bonn
+test_root: "/home/junhwahur_google_com/dataset/bonn"
+test_aug_type: "resize_test"
+
+# DatasetCfgCommon.
+original_image_shape: [480, 640]
+test_image_shape: [384, 512]

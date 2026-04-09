@@ -1,0 +1,20 @@
+defaults:
+  - base_dataset
+
+name: pointodyssey
+train_root: "/home/junhwahur_google_com/dataset/point_odyssey/train"
+test_root: "/home/junhwahur_google_com/dataset/point_odyssey/test"
+train_aug_type: "random_scale_crop_resize_aspect_ratio"
+test_aug_type: "resize_test"
+
+# Data augmentation.
+temporal_flip: true
+horizontal_flip: true
+photometric_aug: true
+min_distance_to_target: 0
+max_distance_to_target: 30
+
+# DatasetCfgCommon.
+original_image_shape: [540, 960]
+test_image_shape: [288, 512]
+

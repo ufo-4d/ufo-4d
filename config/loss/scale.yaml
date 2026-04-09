@@ -1,0 +1,3 @@
+scale:
+  weight: 0.001
+  scale_invariant_apply_after: 1

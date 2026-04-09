@@ -1,0 +1,31 @@
+defaults:
+  - backbone: croco
+
+name: ufo4d
+
+opacity_mapping:
+  initial: 0.0
+  final: 0.0
+  warm_up: 1
+
+num_surfaces: 1
+predict_opacity: false
+
+gaussian_adapter:
+  gaussian_scale_min: 0.5
+  gaussian_scale_max: 15.0
+  sh_degree: 4
+  use_sh: true
+
+use_colors_precomp: false
+
+visualizer:
+  num_samples: 8
+  min_resolution: 256
+  export_ply: false
+
+pretrained_weights: ""
+
+gs_params_head_type: dpt_gs_v1
+motion_head_type: dpt_m_v1
+pose_head_type: mlp_p_v1

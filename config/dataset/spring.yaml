@@ -1,0 +1,16 @@
+defaults:
+  - base_dataset
+
+name: spring
+train_root: "/home/junhwahur_google_com/dataset/spring/train"
+train_aug_type: "random_scale_crop_resize_aspect_ratio"
+test_aug_type: "resize_test"
+
+# Data augmentation.
+temporal_flip: true
+horizontal_flip: true
+photometric_aug: true
+
+# DatasetCfgCommon.
+original_image_shape: [1080, 1920]
+test_image_shape: [288, 512]
